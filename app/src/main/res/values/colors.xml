@@ -10,4 +10,6 @@
     <color name="BtnPressedT1">#a4d7fc</color>
     <color name="BtnRestT2">#ecd6ff</color>
     <color name="BtnPressedT2">#e1bfff</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
