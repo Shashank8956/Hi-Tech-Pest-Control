@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="72dp"
+    android:paddingRight="16dp"
+    android:paddingLeft="16dp"
+    android:paddingTop="8dp">
+
+    <TableRow>
+        <TextView
+            android:id="@+id/RowName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Charles Xavier"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="3"
+            android:layout_column="1"
+            android:fontFamily="@string/Roboto_regular"
+            android:textColorHint="@android:color/holo_purple"
+            android:textColorLink="@android:color/holo_purple"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginBottom="7dp">
+        <TextView
+            android:id="@+id/RowTreat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Termite"
+            android:textColor="#878e9b"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_column="1" />
+
+        <TextView
+            android:id="@+id/RowDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="21/07/2017"
+            android:textSize="15sp"
+            android:textColor="#878e9b"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_column="2"/>
+
+        <TextView
+            android:id="@+id/RowAmt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="15000"
+            android:textColor="#000000"
+            android:textSize="17sp"
+            android:textStyle="normal"
+            android:layout_weight="2"
+            android:layout_column="3"
+            android:gravity="right"/>
+    </TableRow>
+</TableLayout>

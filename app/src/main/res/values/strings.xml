@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Bills</string>
+    <string name="billno">1023</string>
+    <string name="date">05/7/2017</string>
+    <string name="name">Name</string>
+    <string name="cont">Contact</string>
+    <string name="treat">Treatment</string>
+    <string name="amount">Amount</string>
+    <string name="chem">Chemical expense</string>
+    <string name="trav">Traveling expense</string>
+    <string name="Btn"><b>Submit</b></string>
+
+    <string-array name="options">
+        <item>Lorem</item>
+        <item>Ipsum</item>
+        <item>Doler</item>
+        <item>sit</item>
+        <item>amet</item>
+        <item>Lorem</item>
+        <item>Ipsum</item>
+        <item>Doler</item>
+        <item>sit</item>
+        <item>amet</item>
+        <item>Lorem</item>
+        <item>Ipsum</item>
+        <item>Doler</item>
+        <item>sit</item>
+        <item>amet</item>
+        <item>Lorem</item>
+        <item>Ipsum</item>
+        <item>Doler</item>
+        <item>sit</item>
+        <item>amet</item>
+        <item>Lorem</item>
+        <item>Ipsum</item>
+        <item>Doler</item>
+        <item>sit</item>
+        <item>amet</item>
+    </string-array>
+
+    <color name="purple">#eee2ff</color>
+    <color name="gray">#d7e0ef</color>
+    <color name="Dgray">#b8c1d1</color>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
