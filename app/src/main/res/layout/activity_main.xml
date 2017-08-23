@@ -25,8 +25,12 @@
             android:id="@+id/first">
 
             <EditText
+                android:id="@+id/bill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLines="1"
+                android:nextFocusForward="@+id/date"
                 android:hint="@string/billno"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -37,8 +41,11 @@
             android:layout_marginStart="70dp">
 
             <EditText
+                android:id="@+id/date"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:inputType="date"
+                android:nextFocusDown="@+id/name"
                 android:hint="@string/date"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -55,40 +62,40 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="@string/name"
-            android:inputType="text"
-            android:layout_marginBottom="10dp"
-            android:maxLines="1"/>
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/name"
+                android:inputType="text"
+                android:layout_marginBottom="10dp"
+                android:maxLines="1"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/contact"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="@string/cont"
-            android:inputType="number"
-            android:layout_marginBottom="10dp"
-            android:maxLines="1"/>
+            <EditText
+                android:id="@+id/contact"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/cont"
+                android:inputType="number"
+                android:layout_marginBottom="10dp"
+                android:maxLines="1"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/treat"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:hint="@string/treat"
-            android:inputType="text"
-            android:layout_marginBottom="10dp"
-            android:maxLines="1"/>
+            <EditText
+                android:id="@+id/treat"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/treat"
+                android:inputType="text"
+                android:layout_marginBottom="10dp"
+                android:maxLines="1"/>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -96,7 +103,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/Amt"
+                android:id="@+id/amt"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:hint="@string/amount"
@@ -153,7 +160,8 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardPreventCornerOverlap="false">
+            app:cardPreventCornerOverlap="false"
+            app:cardElevation="2dp">
 
             <Button
                 android:id="@+id/btnsub"
