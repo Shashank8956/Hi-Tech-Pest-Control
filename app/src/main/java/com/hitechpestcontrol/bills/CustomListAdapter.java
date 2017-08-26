@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Spongebob on 8/2/2017.
- */
 
 public class CustomListAdapter extends BaseAdapter {
 
