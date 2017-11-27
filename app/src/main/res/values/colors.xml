@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="BtnRest">#a9c9f9</color>
-    <color name="BtnPressed">#c7dbf9</color>
+    <color name="colorPrimary">#4a148c</color>
+    <color name="colorPrimaryDark">#6a1b9a</color>
+    <color name="colorAccent">#b7b7b7</color>
+    <color name="BtnRest">#B39DDB</color>
+    <color name="BtnPressed">#D1C4E9</color>
 
-    <color name="BtnRestT1">#d1ecff</color>
-    <color name="BtnPressedT1">#a4d7fc</color>
-    <color name="BtnRestT2">#ecd6ff</color>
-    <color name="BtnPressedT2">#e1bfff</color>
+    <color name="BtnRestT1">#EDE7F6</color>
+    <color name="BtnPressedT1">#D1C4E9</color>
+    <color name="BtnRestT2">#D1C4E9</color>
+    <color name="BtnPressedT2">#EDE7F6</color>
 
-    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay">#000000</color>
 </resources>

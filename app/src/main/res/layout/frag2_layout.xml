@@ -4,9 +4,17 @@
     android:layout_height="match_parent"
     android:background="@drawable/white1">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <!--<ListView
         android:id="@+id/lview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:entries="@array/options"/>
+        android:entries="@array/options"
+        android:dividerHeight="8dp"/>-->
 </LinearLayout>

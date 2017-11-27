@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,9 @@ import android.widget.TextView;
 
 
 public class Frag2 extends Fragment {
-    ListView lv;
+    private RecyclerView rcl;
+    private CustAdapter ada;
+
     private String[] names = {"Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
             "Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
             "Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
@@ -47,12 +51,20 @@ public class Frag2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag2_layout, container, false);
+        rcl = (RecyclerView) view.findViewById(R.id.RList);
+        ada = new CustAdapter(getActivity());
+        rcl.setAdapter(ada);
+        rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rcl.setHasFixedSize(true);
+        return view;
+        /*View view = inflater.inflate(R.layout.frag2_layout, container, false);
         CustomListAdapter cusAda = new CustomListAdapter(getActivity(), names, treatment, date, amount);
         lv = (ListView) view.findViewById(R.id.lview);
         lv.setAdapter(cusAda);
 
-        return view;
+        return view;*/
     }
 
 }
