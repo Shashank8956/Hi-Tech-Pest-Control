@@ -1,45 +1,44 @@
 package com.hitechpestcontrol.bills;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
-public class Frag2 extends Fragment {
+
+public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
     private RecyclerView rcl;
-    private CustAdapter ada;
-
-    private String[] names = {"Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
-            "Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
-            "Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
-            "Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",
-            "Hotel Nagpur Ashok", "Rahul Delux", "Hotel Rahul", "Rathi Foods", "Dosa Plaza",};
-
-    private String[] treatment = {"Termite", "Cockroach", "Fumigation", "BedBug", "Fogging",
-            "Termite", "Cockroach", "Fumigation", "BedBug", "Fogging",
-            "Termite", "Cockroach", "Fumigation", "BedBug", "Fogging",
-            "Termite", "Cockroach", "Fumigation", "BedBug", "Fogging",
-            "Termite", "Cockroach", "Fumigation", "BedBug", "Fogging"};
-
-    private String[] date = {"02/05/2017", "03/06/2017", "06/06/2017", "19/06/2017", "15/07/2017",
-            "02/05/2017", "03/06/2017", "06/06/2017", "19/06/2017", "15/07/2017",
-            "02/05/2017", "03/06/2017", "06/06/2017", "19/06/2017", "15/07/2017",
-            "02/05/2017", "03/06/2017", "06/06/2017", "19/06/2017", "15/07/2017",
-            "02/05/2017", "03/06/2017", "06/06/2017", "19/06/2017", "15/07/2017"};
-
-    private String[] amount = {"15000", "5000", "6000", "3000", "2000",
-            "15000", "5000", "6000", "3000", "2000",
-            "15000", "5000", "6000", "3000", "2000",
-            "15000", "5000", "6000", "3000", "2000"};
+    public CustAdapter ada;
+    private String[] columns = {"DATE", "NAME", "TREATMENT", "AMOUNT"};
+    private ArrayList<Model> mod = new ArrayList<>();
+    private String MainQuery = null;
+    private Context mContext;
 
 
     public Frag2() {
@@ -48,23 +47,103 @@ public class Frag2 extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+        setHasOptionsMenu(true);
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag2_layout, container, false);
         rcl = (RecyclerView) view.findViewById(R.id.RList);
-        ada = new CustAdapter(getActivity());
+
+        getInformation();
+        //cr.moveToNext();
+
+        ada = new CustAdapter(getActivity(), mod);
         rcl.setAdapter(ada);
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+                LinearLayoutManager.VERTICAL);
+        dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
+        rcl.addItemDecoration(dividerItemDecoration);
+        //rcl.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         rcl.setHasFixedSize(true);
         return view;
-        /*View view = inflater.inflate(R.layout.frag2_layout, container, false);
-        CustomListAdapter cusAda = new CustomListAdapter(getActivity(), names, treatment, date, amount);
-        lv = (ListView) view.findViewById(R.id.lview);
-        lv.setAdapter(cusAda);
-
-        return view;*/
     }
 
+    public ArrayList<Model> getModelList()
+    {
+        return mod;
+    }
+
+    public CustAdapter getAdapter()
+    {
+        return ada;
+    }
+
+    public void setSearchQuery(String query)
+    {
+        MainQuery = query;
+    }
+
+    public void getInformation()
+    {
+        DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        //Cursor cr = db.rawQuery("Select date, name, treatment, amount from MainTable", null);
+        Cursor cr = db.rawQuery("SELECT Date, Name, Treatment, Amount FROM MainTable ORDER BY date(Date) DESC", null);
+        cr.moveToFirst();
+        if(cr.getCount()==0)
+            Log.d("Fuck! It's ", "empty!");
+        else {
+            int i = 0;
+            do {
+                mod.add(new Model(cr.getString(1), cr.getString(2), cr.getString(0), cr.getInt(3)));
+                //Log.d("Lets see the name: ", mod.get(i).getName());
+                i++;
+            /*date.add(cr.getString(0));
+            //System.out.println(cr.getString(0));
+            names.add(cr.getString(1));
+            //names.add(cr.getString(0));
+            treatment.add(cr.getString(2));
+            amount.add(cr.getInt(3));*/
+                //System.out.println(amount.get(0));
+                //System.out.println(amount.get(1));
+            } while (cr.moveToNext());
+        }
+        cr.close();
+        db.close();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("Search");
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        super.onCreateOptionsMenu(menu, inflater);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        //Log.d("Looking for: ", newText);
+        ada.getFilter().filter(newText);
+        return true;
+    }
 }

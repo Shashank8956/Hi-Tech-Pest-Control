@@ -46,6 +46,8 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:inputType="date"
+                android:focusable="false"
+                android:clickable="true"
                 android:nextFocusDown="@+id/name"
                 android:hint="@string/date"/>
 

@@ -3,12 +3,13 @@ package com.hitechpestcontrol.bills;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 
 public class DatabaseHelp extends SQLiteOpenHelper {
 
     private static final String name = "HPC!!";
-    private static final int version = 1;
+    private static final int version = 5;
 
     public DatabaseHelp(Context context)
     {
@@ -18,9 +19,11 @@ public class DatabaseHelp extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+
+        Log.d("Create Table!","");
         String sqlMain= "CREATE table MainTable("+
                 "BILL integer primary key,"+
-                "DATE integer,"+
+                "DATE text,"+
                 "NAME text,"+
                 "TREATMENT text,"+
                 "CONTACT integer,"+
@@ -28,7 +31,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
 
         String sqlAccounts = "CREATE table AccountTable("+
                 "BILL integer primary key,"+
-                "DATE text primary key"+
+                "DATE text,"+
                 "AMOUNT integer,"+
                 "CHEMICAL integer,"+
                 "TRAVEL integer,"+
@@ -40,8 +43,11 @@ public class DatabaseHelp extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String SQL_DELETE_ENTRIES = "DROP table MainTable";
-        db.execSQL(SQL_DELETE_ENTRIES);
+        String SQL_DELETE_ENTRIES1 = "DROP table MainTable";
+        String SQL_DELETE_ENTRIES2 = "DROP table AccountTable";
+        Log.d("Upgrade!","");
+        db.execSQL(SQL_DELETE_ENTRIES1);
+        db.execSQL(SQL_DELETE_ENTRIES2);
         onCreate(db);
 
     }
