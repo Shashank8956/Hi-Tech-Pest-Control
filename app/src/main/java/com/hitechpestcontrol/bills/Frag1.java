@@ -2,6 +2,7 @@ package com.hitechpestcontrol.bills;
 
 
 import android.app.DatePickerDialog;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -26,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -71,7 +73,19 @@ public class Frag1 extends Fragment {
             public void onDateSet(DatePicker datepicker, int year, int month, int day)
             {
                 month = month + 1;
-                String date = year+"-"+month+"-"+day;
+                String formattedMonth=null, formattedDayOfMonth=null;
+                if(month < 10)
+                    formattedMonth = "0" + String.valueOf(month);
+                else
+                    formattedMonth = String.valueOf(month);
+
+                if(day < 10)
+                    formattedDayOfMonth = "0" + String.valueOf(day);
+                else
+                    formattedDayOfMonth = String.valueOf(day);
+                Log.d("Month: "+formattedMonth," Date: "+formattedDayOfMonth);
+
+                String date = year+"-"+formattedMonth+"-"+formattedDayOfMonth;
                 editText.setText(date);
             }
         };
@@ -120,32 +134,7 @@ public class Frag1 extends Fragment {
 
                     sProfit = Integer.parseInt(sAmt) - Integer.parseInt(sChem) - Integer.parseInt(sTrav);
                     System.out.println("Profit is:" +sProfit);
-                    StringBuilder sbDate = new StringBuilder();
-                    for(int i=0; i<sDate.length(); i++)
-                    {
-                        if(i==5) {
-                            if(sDate.charAt(i+1)=='-') {
-                                sbDate.append('0');
-                                sbDate.append(sDate.charAt(i));
-                            }
-                            else {
-                                sbDate.append(sDate.charAt(i));
-                                sbDate.append(sDate.charAt(++i));
-                            }
-                        }
-                        else if(i==7 && sDate.length()==8) {
-                            sbDate.append('0');
-                            sbDate.append(sDate.charAt(i));
-                        }
-                        else if(i==8 && sDate.length()==9){
-                            sbDate.append("0");
-                            sbDate.append(sDate.charAt(i));
-                        }
-                        else
-                            sbDate.append(sDate.charAt(i));
-                    }
-                    sDate = sbDate.toString();
-                    System.out.println(sbDate+"  "+sDate);
+                    System.out.println(" Date "+sDate);
                     try {
                         DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
                         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -171,6 +160,10 @@ public class Frag1 extends Fragment {
                         valuesAcc.put("PROFIT", sProfit);
 
                         db.insert("AccountTable", null, valuesAcc);
+                        ArrayList<Model> tempMod = new ArrayList<Model>();
+                        tempMod.add(new Model(sName, sTreat, sDate, Integer.parseInt(sAmt)));
+                        //RefreshList(tempMod);
+
                         Toast.makeText(getContext(), "Done!",
                                 Toast.LENGTH_LONG).show();
 
@@ -195,6 +188,17 @@ public class Frag1 extends Fragment {
 
         }
         return rootView;
+    }
+
+    public void RefreshList(){
+        /*Fragment currentFragment;
+        //currentFragment = getActivity().getFragmentManager().findFragmentById(R.layout.frag2_layout);
+        if (currentFragment instanceof Frag2) {
+            FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
+            fragTransaction.detach(currentFragment);
+            fragTransaction.attach(currentFragment);
+            fragTransaction.commit();}
+    }*/
     }
 
 }

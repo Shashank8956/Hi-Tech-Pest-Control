@@ -27,6 +27,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,48 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView sv = (SearchView) item.getActionView();
-        sv.setMaxWidth(Integer.MAX_VALUE);
-        search = sv;
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-            @Override
-            public boolean onQueryTextSubmit(String newText) {
-                query = newText;
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Log.d("Looking for: ", newText);
-                //new CustAdapter(getApplicationContext(), tempMod).getFilter().filter(newText);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public SearchView sendSearch()
-    {
-        return search;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        if(item.getItemId() == R.id.action_search) {
-            mPager.setCurrentItem(1);
-            Log.d("This doesn't", "work so far!");
-        }
-        return true;
-    }*/
-
     @Override
     public void onBackPressed() {
         if (mPager.getCurrentItem() == 0) {
@@ -123,11 +83,6 @@ public class MainActivity extends AppCompatActivity {
         Toast toast= Toast.makeText(context, msg, duration);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
-        //Intent intent = new Intent(MainActivity.this, SecondPage1.class);
-        //EditText editText = (EditText) findViewById(R.id.name);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        //startActivity(intent);
     }
 
 
@@ -141,8 +96,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        private Map<Integer, String> mFragmentTags;
+        private FragmentManager mFragmentManager;
+        private Context mContext;
+
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
+            mFragmentTags = new HashMap<Integer, String>();
         }
 
         @Override

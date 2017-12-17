@@ -66,6 +66,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
         //cr.moveToNext();
 
         ada = new CustAdapter(getActivity(), mod);
+        ada.notifyDataSetChanged();
         rcl.setAdapter(ada);
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
@@ -74,7 +75,13 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
         rcl.addItemDecoration(dividerItemDecoration);
         //rcl.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         rcl.setHasFixedSize(true);
+
         return view;
+    }
+
+    public void RefreshList(ArrayList<Model> tempMod) {
+        mod = tempMod;
+        ada.notifyDataSetChanged();
     }
 
     public ArrayList<Model> getModelList()

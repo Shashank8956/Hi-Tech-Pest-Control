@@ -1,6 +1,8 @@
 package com.hitechpestcontrol.bills;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,12 +26,14 @@ public class CustAdapter extends RecyclerView.Adapter<CustAdapter.MyViewHolder> 
     public ArrayList<Model> mod = new ArrayList<Model>();
     private ArrayList<Model> mFilteredList = new ArrayList<Model>();
     private CustomFilter filter;
+    private Context con;
 
     public CustAdapter(Context con, ArrayList<Model> mod)
     {
         inflator=LayoutInflater.from(con);
         this.mod = mod;
         this.mFilteredList = mod;
+        this.con = con;
         //System.out.println(mod.get(0).getDate());
         Log.d("Size of Mod: " + mod.size(),"!");
     }
@@ -41,12 +46,34 @@ public class CustAdapter extends RecyclerView.Adapter<CustAdapter.MyViewHolder> 
         return holder;
     }
 
+
+
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         holder.tvName.setText(mod.get(position).getName());
         holder.tvTreat.setText(mod.get(position).getTreat());
         holder.tvAmount.setText(Integer.toString(mod.get(position).getAmount()));
         holder.tvDate.setText(mod.get(position).getDate());
+
+        holder.tvDate.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
+                ListDetailsDialog dia = new ListDetailsDialog();
+                dia.show(manager, "ListDialog");
+                Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.tvDate.setOnLongClickListener(new View.OnLongClickListener(){
+
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
+                return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
+            }
+        });
         //Log.d(Tag, "OnBindViewHolder: "+ position);
     }
 
