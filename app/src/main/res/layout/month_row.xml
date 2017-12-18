@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="72dp"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="4dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="#f4d6ff"
+        android:layout_height="30dp">
+        <TextView
+            android:id="@+id/MonthRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Month of 2017"/>
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="72dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="4dp">
 
 
         <TextView
-            android:id="@+id/RowName"
+            android:id="@+id/RowNameX"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Charles Xavier"
@@ -23,7 +41,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/RowTreat"
+            android:id="@+id/RowTreatX"
             android:layout_marginTop="5dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -34,7 +52,7 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/RowAmt"
+            android:id="@+id/RowAmtX"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="15000"
@@ -47,7 +65,7 @@
             android:gravity="right"/>
 
         <TextView
-            android:id="@+id/RowDate"
+            android:id="@+id/RowDateX"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="21/07/2017"
@@ -56,4 +74,6 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_alignTop="@+id/RowTreat" />
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

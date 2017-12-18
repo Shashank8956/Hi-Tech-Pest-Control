@@ -1,5 +1,6 @@
 package com.hitechpestcontrol.bills;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
 
     private static final int NUM_PAGES = 3;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Model> tempMod = new ArrayList<Model>();
     private String tabtitles[] = new String[] { "Home", "Log", "Accounts" }, query = null;
     private EditText edate;
+    private String tag;
 
 
     @Override
@@ -55,12 +58,17 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         mPager = (ViewPager)findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(),getApplicationContext());
         mPager.setAdapter(mPagerAdapter);
+
+        /*Bundle bundle = new Bundle();
+        bundle.putString("params", "My String data");
+// set MyFragment Arguments
+        Frag1 myObj = new Frag1();
+        myObj.setArguments(bundle);*/
 
         tempMod = new Frag2().getModelList();
         tempAda = new Frag2().getAdapter();
-
     }
 
     @Override
@@ -85,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    public String getFragmentTag(){
+        return tag;
+    }
 
     public void getAccounts(View view)
     {
@@ -94,16 +105,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         private Map<Integer, String> mFragmentTags;
         private FragmentManager mFragmentManager;
         private Context mContext;
 
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+        public ScreenSlidePagerAdapter(FragmentManager fm, Context con) {
             super(fm);
             mFragmentManager = fm;
             mFragmentTags = new HashMap<Integer, String>();
+            mContext = con;
         }
 
         @Override
@@ -125,6 +136,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int pos) {
             return tabtitles[pos];
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position)
+        {
+            Object obj = super.instantiateItem(container, position);
+            if(obj instanceof Fragment) {
+                //Recording the fragment tag here
+                Fragment f = (Fragment) obj;
+                tag = f.getTag();
+                mFragmentTags.put(position, tag);
+            }
+            return obj;
+        }
+
+        public Fragment getFragment(int position){
+            String tag = mFragmentTags.get(position);
+            if(tag == null)
+                return null;
+            return mFragmentManager.findFragmentByTag(tag);
         }
     }
 }
