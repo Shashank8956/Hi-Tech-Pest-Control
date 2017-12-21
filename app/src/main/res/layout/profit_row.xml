@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/LastBooking"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Total Bookings: #"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/LinearContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/LastBooking"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/LastTrav"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Travel"
+            android:gravity="left|center_vertical"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/LastChem"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Chemical"
+            android:gravity="center"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/LastTotal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Total"
+            android:gravity="right|center_vertical"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/LinearContainer"
+        android:layout_alignParentStart="true">
+        <TextView
+            android:id="@+id/LastPercent"
+            android:text="Percentage"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            />
+
+        <TextView
+            android:id="@+id/LastProfit"
+            android:text="Profit"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"/>
+    </LinearLayout>
+</RelativeLayout>
