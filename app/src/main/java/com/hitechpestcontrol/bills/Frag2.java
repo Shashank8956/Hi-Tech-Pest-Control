@@ -113,17 +113,13 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         else {
             int i = 0;
             do {
-                mod.add(new Model(Integer.parseInt(cr.getString(0)), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), Integer.parseInt(cr.getString(5))));
-                //Log.d("Lets see the name: ", mod.get(i).getName());
+                mod.add(new Model(Integer.parseInt(cr.getString(0)),
+                        cr.getString(1),
+                        cr.getString(2),
+                        cr.getString(3),
+                        cr.getString(4),
+                        Integer.parseInt(cr.getString(5))));
                 i++;
-            /*date.add(cr.getString(0));
-            //System.out.println(cr.getString(0));
-            names.add(cr.getString(1));
-            //names.add(cr.getString(0));
-            treatment.add(cr.getString(2));
-            amount.add(cr.getInt(3));*/
-                //System.out.println(amount.get(0));
-                //System.out.println(amount.get(1));
             } while (cr.moveToNext());
         }
         cr.close();

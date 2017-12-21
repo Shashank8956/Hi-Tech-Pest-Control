@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/LinearContainer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:layout_alignParentStart="true"
+        android:background="#f6e0ff">
+
+            <TextView
+                android:id="@+id/LastBooking"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:text="Total Bookings: #"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="8dp"
+                android:fontFamily="sans-serif"
+                android:textSize="18sp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/LastPercent"
+                android:text="Percentage"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:textSize="18sp"
+                android:textColor="@color/cardview_dark_background"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearContainer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/LinearContainer1"
+        android:layout_alignParentStart="true"
+        android:background="#f6e0ff">
+
+        <TextView
+            android:id="@+id/LastTrav"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Travel"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="8dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/LastTotal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Total"
+            android:gravity="right|center_vertical"
+            android:layout_weight="1"
+            android:paddingRight="8dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="4dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/LinearContainer2"
+        android:layout_alignParentStart="true"
+        android:background="#f6e0ff">
+
+        <TextView
+            android:id="@+id/LastChem"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="Chemical"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="8dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@color/cardview_dark_background" />
+
+        <TextView
+            android:id="@+id/LastProfit"
+            android:text="Profit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:textSize="18sp"
+            android:paddingRight="8dp"
+            android:textColor="@android:color/black"
+            android:textStyle="normal|bold" />
+    </LinearLayout>
+</RelativeLayout>

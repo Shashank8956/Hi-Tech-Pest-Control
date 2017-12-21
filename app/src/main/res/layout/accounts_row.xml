@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <TextView
+        android:id="@+id/ColBill"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Bill No"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/ColName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Customer Name"
+        android:layout_weight="2"
+        android:textSize="12sp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/ColTrav"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Trav"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/ColChem"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Chem"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/ColTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Total"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:textColor="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/ColProfit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Profit"
+        android:layout_weight="1"
+        android:textSize="12sp"
+        android:textColor="@color/cardview_dark_background" />
+
+</LinearLayout>
