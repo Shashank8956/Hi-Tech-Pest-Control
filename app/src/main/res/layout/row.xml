@@ -4,9 +4,17 @@
     android:layout_height="72dp"
     android:paddingRight="16dp"
     android:paddingLeft="16dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="4dp">
+    android:paddingTop="9dp"
+    android:paddingBottom="12dp"
+    android:background="@drawable/list_onclick_highlighter">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            android:background="#C0C0C0"/>
 
         <TextView
             android:id="@+id/RowName"
@@ -15,7 +23,7 @@
             android:text="Charles Xavier"
             android:textSize="18sp"
             android:textColor="#000000"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@string/Roboto_regular"
             android:textColorHint="@android:color/holo_purple"

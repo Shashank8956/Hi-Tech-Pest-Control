@@ -165,7 +165,7 @@ public class Frag1 extends Fragment {
 
                             db.insert("AccountTable", null, valuesAcc);
                             ArrayList<Model> tempMod = new ArrayList<Model>();
-                            tempMod.add(new Model(sName, sTreat, sDate, Integer.parseInt(sAmt)));
+                            tempMod.add(new Model(Integer.parseInt(sBill), sName, sTreat, sDate, sCont, Integer.parseInt(sAmt)));
                             //RefreshList();
 
                             Toast.makeText(getContext(), "Done!",

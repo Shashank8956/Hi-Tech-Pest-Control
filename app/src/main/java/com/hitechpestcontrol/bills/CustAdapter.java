@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +33,9 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private ArrayList<Model> mFilteredList = new ArrayList<Model>();
     private CustomFilter filter;
     private Context con;
+    private Frag2 frag2;
+
+
 
     public CustAdapter(Context con, ArrayList<Model> mod)
     {
@@ -71,8 +79,14 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     public void onClick(View v) {
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
+
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -80,6 +94,8 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
                     }
                 });
+
+                //holder1.tvName.setOnLongClickListener(frag2);
 
                 holder1.tvName.setOnLongClickListener(new View.OnLongClickListener(){
 
@@ -97,7 +113,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -122,7 +143,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -147,7 +173,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -181,7 +212,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -206,7 +242,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -231,7 +272,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -256,7 +302,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                         android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
                         Bundle args = new Bundle();
-                        args.putString("key", "Shashank");
+                        args.putInt("_BILL", mod.get(position).getBill());
+                        args.putString("_DATE", mod.get(position).getDate());
+                        args.putString("_NAME", mod.get(position).getName());
+                        args.putString("_TREATMENT", mod.get(position).getTreat());
+                        args.putString("_CONTACT", mod.get(position).getContact());
+                        args.putInt("_AMOUNT", mod.get(position).getAmount());
                         ListDetailsDialog newFragment = new ListDetailsDialog();
                         newFragment.setArguments(args);
                         newFragment.show(((Activity) con).getFragmentManager(), "TAG");
@@ -276,33 +327,6 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
                 break;
         }
-
-
-
-       /*holder.tvName.setText(mod.get(position).getName());
-        holder.tvTreat.setText(mod.get(position).getTreat());
-        holder.tvAmount.setText(Integer.toString(mod.get(position).getAmount()));
-        holder.tvDate.setText(mod.get(position).getDate());
-
-        holder.tvDate.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-                ListDetailsDialog dia = new ListDetailsDialog();
-                dia.show(manager, "ListDialog");
-                Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        holder.tvDate.setOnLongClickListener(new View.OnLongClickListener(){
-
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-            }
-        });*/
         //Log.d(Tag, "OnBindViewHolder: "+ position);
     }
 
@@ -347,7 +371,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 return 1;
         }
         else{
-            return 0;
+            return 1;
         }
     }
 
@@ -364,12 +388,13 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             tvTreat = (TextView) itemView.findViewById(R.id.RowTreat);
             tvAmount = (TextView) itemView.findViewById(R.id.RowAmt);
             tvDate = (TextView) itemView.findViewById(R.id.RowDate);
+
+            tvName.setOnLongClickListener(frag2);
         }
     }
 
     class MonthRowHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvRow;
         private TextView tvName;
         private TextView tvTreat;
         private TextView tvAmount;
@@ -377,7 +402,6 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         public MonthRowHolder(View itemView) {
             super(itemView);
-            tvRow = (TextView) itemView.findViewById(R.id.MonthRow);
             tvName = (TextView) itemView.findViewById(R.id.RowNameX);
             tvTreat = (TextView) itemView.findViewById(R.id.RowTreatX);
             tvAmount = (TextView) itemView.findViewById(R.id.RowAmtX);

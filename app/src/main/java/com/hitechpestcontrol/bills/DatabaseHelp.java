@@ -9,7 +9,7 @@ import android.util.Log;
 public class DatabaseHelp extends SQLiteOpenHelper {
 
     private static final String name = "HPC!!";
-    private static final int version = 5;
+    private static final int version = 7;
 
     public DatabaseHelp(Context context)
     {
@@ -26,7 +26,7 @@ public class DatabaseHelp extends SQLiteOpenHelper {
                 "DATE text,"+
                 "NAME text,"+
                 "TREATMENT text,"+
-                "CONTACT integer,"+
+                "CONTACT text,"+
                 "AMOUNT integer)";
 
         String sqlAccounts = "CREATE table AccountTable("+

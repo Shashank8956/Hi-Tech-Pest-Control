@@ -9,34 +9,8 @@
     <string name="chem">Chemical expense</string>
     <string name="trav">Traveling expense</string>
     <string name="Btn"><b>Submit</b></string>
+    <string name="Rs">\u20B9</string>
 
-    <string-array name="options">
-        <item>Lorem</item>
-        <item>Ipsum</item>
-        <item>Doler</item>
-        <item>sit</item>
-        <item>amet</item>
-        <item>Lorem</item>
-        <item>Ipsum</item>
-        <item>Doler</item>
-        <item>sit</item>
-        <item>amet</item>
-        <item>Lorem</item>
-        <item>Ipsum</item>
-        <item>Doler</item>
-        <item>sit</item>
-        <item>amet</item>
-        <item>Lorem</item>
-        <item>Ipsum</item>
-        <item>Doler</item>
-        <item>sit</item>
-        <item>amet</item>
-        <item>Lorem</item>
-        <item>Ipsum</item>
-        <item>Doler</item>
-        <item>sit</item>
-        <item>amet</item>
-    </string-array>
 
     <color name="purple">#eee2ff</color>
     <color name="gray">#d7e0ef</color>

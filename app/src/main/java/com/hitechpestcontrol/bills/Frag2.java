@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
+public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, View.OnLongClickListener{
     private RecyclerView rcl;
     public CustAdapter ada;
     private String[] columns = {"DATE", "NAME", "TREATMENT", "AMOUNT"};
@@ -69,10 +69,12 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
         ada.notifyDataSetChanged();
         rcl.setAdapter(ada);
         rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+
+        //Following multiline comment adds a line divider to the recyclerview
+        /*DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
                 LinearLayoutManager.VERTICAL);
         dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
-        rcl.addItemDecoration(dividerItemDecoration);
+        rcl.addItemDecoration(dividerItemDecoration);*/
         //rcl.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         rcl.setHasFixedSize(true);
 
@@ -104,14 +106,14 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
         DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         //Cursor cr = db.rawQuery("Select date, name, treatment, amount from MainTable", null);
-        Cursor cr = db.rawQuery("SELECT Date, Name, Treatment, Amount FROM MainTable ORDER BY date(Date) DESC", null);
+        Cursor cr = db.rawQuery("SELECT * FROM MainTable ORDER BY date(Date) DESC", null);
         cr.moveToFirst();
         if(cr.getCount()==0)
             Log.d("Fuck! It's ", "empty!");
         else {
             int i = 0;
             do {
-                mod.add(new Model(cr.getString(1), cr.getString(2), cr.getString(0), cr.getInt(3)));
+                mod.add(new Model(Integer.parseInt(cr.getString(0)), cr.getString(1), cr.getString(2), cr.getString(3), cr.getString(4), Integer.parseInt(cr.getString(5))));
                 //Log.d("Lets see the name: ", mod.get(i).getName());
                 i++;
             /*date.add(cr.getString(0));
@@ -152,5 +154,11 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener{
         //Log.d("Looking for: ", newText);
         ada.getFilter().filter(newText);
         return true;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Log.d("From Frag2:", "OnLongClick");
+        return false;
     }
 }
