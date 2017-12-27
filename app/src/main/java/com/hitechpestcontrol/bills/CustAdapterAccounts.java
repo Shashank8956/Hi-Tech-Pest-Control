@@ -21,13 +21,15 @@ public class CustAdapterAccounts extends RecyclerView.Adapter<RecyclerView.ViewH
     public ArrayList<AccountsModel> mod = new ArrayList<AccountsModel>();
     private CustomFilter filter;
     private Context con;
+    private String[] sum;
     private LayoutInflater inflator;
 
-    public CustAdapterAccounts(Context con, ArrayList<AccountsModel> mod)
+    public CustAdapterAccounts(Context con, ArrayList<AccountsModel> mod, String[] sum)
     {
         inflator= LayoutInflater.from(con);
         this.mod = mod;
         this.con = con;
+        this.sum = sum;
         Log.d("Size of Mod: " + mod.size(),"!");
     }
 
@@ -62,18 +64,24 @@ public class CustAdapterAccounts extends RecyclerView.Adapter<RecyclerView.ViewH
                 String temp = "Total Bookings: "+Integer.toString(mod.size());
                 holder2.tvLastBooking.setText(temp);
                 temp = Rupees+" "+"2500";
-                holder2.tvLastTrav.setText("Trav: "+temp);
-                holder2.tvLastChem.setText("Chem: " + temp);
-                holder2.tvLastTotal.setText("Total: " + temp);
-                holder2.tvLastPercent.setText("86%");
-                holder2.tvLastProfit.setText("Profit: "+temp);
+                double percent =0.0;
+                System.out.println("Profit amount: "+ Integer.parseInt(sum[3]));
+                System.out.println("Total amount: "+ Integer.parseInt(sum[0]));
+                percent = (((float)Integer.parseInt(sum[3])/Integer.parseInt(sum[0])))*100;
+                String str = String.format("%2.02f", percent);
+                Log.d("Percent", " "+str);
+                holder2.tvLastTrav.setText("Trav: "+sum[2]);
+                holder2.tvLastChem.setText("Chem: "+ sum[1]);
+                holder2.tvLastTotal.setText("Total: "+ sum[0]);
+                holder2.tvLastPercent.setText(str+"%");
+                holder2.tvLastProfit.setText("Profit: "+sum[3]);
                 break;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position==(mod.size()-1))
+        if(position==(mod.size()))
             return 1;
         else
             return 0;
@@ -82,7 +90,8 @@ public class CustAdapterAccounts extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return mod.size();
+        int i = mod.size() +1;
+        return i;
     }
 
 

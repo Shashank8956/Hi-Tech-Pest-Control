@@ -9,8 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.format.Time;
@@ -23,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,6 +39,7 @@ import java.util.List;
 public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, View.OnLongClickListener{
     private RecyclerView rcl;
     public CustAdapter ada;
+    private ImageView emptyImage;
     private String[] columns = {"DATE", "NAME", "TREATMENT", "AMOUNT"};
     private ArrayList<Model> mod = new ArrayList<>();
     private String MainQuery = null;
@@ -61,25 +66,25 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.frag2_layout, container, false);
         rcl = (RecyclerView) view.findViewById(R.id.RList);
-
+        emptyImage = (ImageView) view.findViewById(R.id.empty);
         getInformation();
         //cr.moveToNext();
-
-        ada = new CustAdapter(getActivity(), mod);
-        ada.notifyDataSetChanged();
-        rcl.setAdapter(ada);
-        rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //Following multiline comment adds a line divider to the recyclerview
-        /*DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-                LinearLayoutManager.VERTICAL);
-        dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.line_divider));
-        rcl.addItemDecoration(dividerItemDecoration);*/
-        //rcl.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        rcl.setHasFixedSize(true);
-
+        if(mod.isEmpty()){
+            rcl.setVisibility(View.GONE);
+            emptyImage.setVisibility(View.VISIBLE);
+        }else {
+            rcl.setVisibility(View.VISIBLE);
+            emptyImage.setVisibility(View.GONE);
+            ada = new CustAdapter(getActivity(), mod);
+            ada.notifyDataSetChanged();
+            rcl.setAdapter(ada);
+            rcl.setItemAnimator(new DefaultItemAnimator());
+            rcl.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rcl.setHasFixedSize(true);
+        }
         return view;
     }
+
 
     public void RefreshList(ArrayList<Model> tempMod) {
         mod = tempMod;
@@ -130,6 +135,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        //MenuItem popupItem = menu.findItem(R.id.action_popup);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Search");
@@ -157,4 +163,6 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         Log.d("From Frag2:", "OnLongClick");
         return false;
     }
+
 }
+

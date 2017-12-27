@@ -3,6 +3,9 @@ package com.hitechpestcontrol.bills;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +14,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -26,6 +30,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -45,6 +50,8 @@ public class MainActivity extends AppCompatActivity{
     private String tabtitles[] = new String[] { "Home", "Log", "Accounts" }, query = null;
     private EditText edate;
     private String tag;
+    private String Year, Months[] = {"January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"};
 
 
     @Override
@@ -82,8 +89,44 @@ public class MainActivity extends AppCompatActivity{
             mPager.setCurrentItem(mPager.getCurrentItem() - 1);
         }
     }
+/*It's worth noting that when using android:onClick on a MenuItem, the function to be called onClick must take one parameter as MenuItem item and not
+* View view. The latter is to be used with non item view such as Buttons, TextView, etc.
+* Also do not use getActivity in PopupMenu(), use MainActivity.this instead.*/
+    public void showPopup(MenuItem item) {
+        //Toast.makeText(this, "It's not working!!!", Toast.LENGTH_SHORT).show();
+        final View view = findViewById(R.id.action_popup); // SAME ID AS MENU ID
+        PopupMenu popup = new PopupMenu(MainActivity.this, view);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.backup:
+                            backup(view);
+                            return true;
+                        case R.id.restore:
+                            restore(view);
+                            return true;
+                        case R.id.clear:
+                            clear(view);
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+        });
+        popup.inflate(R.menu.popup_menu);
+        popup.show();
+    }
 
-    public void sendMessage(View view)
+
+    public void chooseYear(View view){
+        NumberPicker num = new NumberPicker(this);
+        num.setDisplayedValues(new String[] {"2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"});
+
+    }
+
+
+    public void Message(View view)
     {
         Context context = getApplicationContext();
         String msg = "Entry added successfully!";
@@ -99,10 +142,44 @@ public class MainActivity extends AppCompatActivity{
 
     public void getAccounts(View view)
     {
-        Button btn;
-
+        Button btn = (Button)view;
         Intent intent = new Intent(MainActivity.this, Activity2.class);
+        String monthStr = btn.getText().toString(), sendingValue=null;
+
+        for(int i=0; i<12; i++)
+        {
+            if(Months[i].equalsIgnoreCase(monthStr))
+            {
+                if((i+1)<10)
+                    sendingValue = "0"+Integer.toString(i+1);
+                else
+                    sendingValue = Integer.toString(i+1);
+                break;
+            }
+        }
+        intent.putExtra("Month", sendingValue);
+        intent.putExtra("Year", "2017");
         startActivity(intent);
+    }
+
+    void backup(View v){
+        Snackbar.make(v, "Backup in progress", Snackbar.LENGTH_LONG).show();
+    }
+
+
+    void restore(View v){
+        Snackbar.make(v, "Restoring", Snackbar.LENGTH_LONG).show();
+    }
+
+    void clear(View v){
+        DatabaseHelp mDbHelper = new DatabaseHelp(getApplicationContext());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        //Cursor cr = db.rawQuery("DROP TABLE MainTable", null);
+        //cr = db.rawQuery("DROP TABLE AccountsTable", null);
+        //cr.close();
+        db.close();
+        Snackbar.make(v, "All records deleted", Snackbar.LENGTH_LONG).show();
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {

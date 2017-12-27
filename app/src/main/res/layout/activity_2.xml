@@ -18,6 +18,7 @@
         android:paddingTop="41dp"/>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         app:cardBackgroundColor="#D1C4E9">
@@ -86,5 +87,12 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <ImageView
+        android:id="@+id/empty_list2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/empty_list1"
+        android:visibility="gone"/>
 
 </FrameLayout>

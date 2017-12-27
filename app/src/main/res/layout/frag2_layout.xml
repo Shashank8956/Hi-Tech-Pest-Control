@@ -12,6 +12,15 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <ImageView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:contentDescription="No data!"
+        android:layout_height="match_parent"
+        android:src="@drawable/empty_list1"
+        android:visibility="gone"
+        />
+
     <!--<ListView
         android:id="@+id/lview"
         android:layout_width="match_parent"
