@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Bills</string>
     <string name="billno">1023</string>
-    <string name="date">05/7/2017</string>
+    <string name="date">Date</string>
     <string name="name">Name</string>
     <string name="cont">Contact</string>
     <string name="treat">Treatment</string>

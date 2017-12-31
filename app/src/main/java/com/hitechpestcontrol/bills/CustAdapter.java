@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +49,6 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.mod = mod;
         this.mFilteredList = mod;
         this.con = con;
-        //System.out.println(mod.get(0).getDate());
-        //Log.d("Size of Mod: " + mod.size(),"!");
     }
 
     @Override
@@ -60,9 +59,6 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             case 0: return new MyViewHolder(view1);
             case 1: return new MonthRowHolder(view2);
         }
-        /*View view = inflator.inflate(R.layout.row, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
-        //Log.d(Tag, "OnCreateViewHolder: ");*/
         return new MyViewHolder(view1);
     }
 
@@ -78,130 +74,6 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 holder1.tvAmount.setText(Integer.toString(mod.get(position).getAmount()));
                 holder1.tvDate.setText(mod.get(position).getDate());
 
-
-                /*holder1.tvName.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                //holder1.tvName.setOnLongClickListener(frag2);
-
-                holder1.tvName.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });
-
-                holder1.tvTreat.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder1.tvTreat.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });
-
-                holder1.tvAmount.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder1.tvAmount.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });
-
-                holder1.tvDate.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder1.tvDate.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });*/
-
                 break;
 
             case 1:
@@ -212,129 +84,8 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 holder2.tvAmount.setText(Integer.toString(mod.get(position).getAmount()));
                 holder2.tvDate.setText(mod.get(position).getDate());
 
-                /*holder2.tvName.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder2.tvName.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });
-
-                holder2.tvTreat.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder2.tvTreat.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });
-
-                holder2.tvAmount.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder2.tvAmount.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });
-
-                holder2.tvDate.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-                        Bundle args = new Bundle();
-                        args.putInt("_BILL", mod.get(position).getBill());
-                        args.putString("_DATE", mod.get(position).getDate());
-                        args.putString("_NAME", mod.get(position).getName());
-                        args.putString("_TREATMENT", mod.get(position).getTreat());
-                        args.putString("_CONTACT", mod.get(position).getContact());
-                        args.putInt("_AMOUNT", mod.get(position).getAmount());
-                        ListDetailsDialog newFragment = new ListDetailsDialog();
-                        newFragment.setArguments(args);
-                        newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-                        Toast.makeText(con, "Click on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                holder2.tvDate.setOnLongClickListener(new View.OnLongClickListener(){
-
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Toast.makeText(con, "Long Clicked on item no: "+ (position+1), Toast.LENGTH_SHORT).show();
-                        return true;              //Return true in this case because if we return false, OnClickListener will be called after OnLongClickListner
-                    }
-                });*/
-
                 break;
         }
-        //Log.d(Tag, "OnBindViewHolder: "+ position);
     }
 
     @Override
@@ -342,13 +93,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         return mod.size();
     }
 
-    public int getPosition() {
-        return pos;
-    }
-
-    public void setPosition(int position) {
-        this.pos = pos;
-    }
+    /*@Override
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        holder.itemView.setOnLongClickListener(null);
+        holder.itemView.setOnClickListener(null);
+        super.onViewRecycled(holder);
+    }*/
 
     @Override
     public Filter getFilter() {
@@ -410,7 +160,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         private TextView tvTreat;
         private TextView tvAmount;
         private TextView tvDate;
-
+        private RelativeLayout rel;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -418,7 +168,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             tvTreat = (TextView) itemView.findViewById(R.id.RowTreat);
             tvAmount = (TextView) itemView.findViewById(R.id.RowAmt);
             tvDate = (TextView) itemView.findViewById(R.id.RowDate);
-            tvName.setOnLongClickListener(frag2);
+            rel = (RelativeLayout) itemView.findViewById(R.id.RowSelection);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -426,7 +176,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         @Override
         public void onClick(View v) {
-            android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
+            /*android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
             Bundle args = new Bundle();
             args.putInt("_BILL", mod.get(getAdapterPosition()).getBill());
@@ -439,13 +189,15 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newFragment.setArguments(args);
             newFragment.show(((Activity) con).getFragmentManager(), "TAG");
 
-            Toast.makeText(con, "Click on item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();
+            Toast.makeText(con, "Click on item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();*/
+            if(click!=null)
+                click.RowItemClicked(v, getAdapterPosition(), rel);
         }
 
         @Override
         public boolean onLongClick(View v) {
             if(click!=null)
-                click.RowItemLongClicked(v, getAdapterPosition());
+                click.RowItemLongClicked(v, getAdapterPosition(), rel);
             return true;
         }
 
@@ -458,7 +210,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         private TextView tvAmount;
         private TextView tvDate;
         private TextView tvRow;
-
+        private RelativeLayout rel;
         public MonthRowHolder(View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.RowNameX);
@@ -466,6 +218,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             tvAmount = (TextView) itemView.findViewById(R.id.RowAmtX);
             tvDate = (TextView) itemView.findViewById(R.id.RowDateX);
             tvRow = (TextView) itemView.findViewById(R.id.MonthRow);
+            rel = (RelativeLayout) itemView.findViewById(R.id.MonthRowSelection);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -473,7 +226,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         @Override
         public void onClick(View v) {
-            android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
+            /*android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
 
             Bundle args = new Bundle();
             args.putInt("_BILL", mod.get(getAdapterPosition()).getBill());
@@ -486,19 +239,21 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             newFragment.setArguments(args);
             newFragment.show(((Activity) con).getFragmentManager(), "TAG");
 
-            Toast.makeText(con, "Click on item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();
+            Toast.makeText(con, "Click on item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();*/
+            if(click!=null)
+                click.RowItemClicked(v, getAdapterPosition(), rel);
         }
 
         @Override
         public boolean onLongClick(View v) {
             if(click!=null)
-                click.RowItemLongClicked(v, getAdapterPosition());
+                click.RowItemLongClicked(v, getAdapterPosition(), rel);
             return true;
         }
     }
 
     public interface OnClickingRow{
-        public void RowItemLongClicked(View v, int position);
+        public void RowItemLongClicked(View v, int position, RelativeLayout rel);
+        public void RowItemClicked(View v, int position, RelativeLayout rel);
     }
-
 }

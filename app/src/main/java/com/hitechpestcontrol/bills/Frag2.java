@@ -1,10 +1,12 @@
 package com.hitechpestcontrol.bills;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,6 +32,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +51,8 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
     private ArrayList<Model> mod = new ArrayList<>();
     private String MainQuery = null;
     private Context mContext;
+    private int selectedPosition = -1;
+    private RelativeLayout oldRel=null;
     private boolean is_in_action_mode = false;
 
 
@@ -175,30 +180,96 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home)
-        {
-            toolbar.getMenu().clear();
-            toolbar.inflateMenu(R.menu.main_menu);
-            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            is_in_action_mode = false;
+        switch (item.getItemId()) {
+            case android.R.id.home :    toolbar.getMenu().clear();
+                                        toolbar.inflateMenu(R.menu.main_menu);
+                                        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                                        selectedPosition = -1;
+                                        if(oldRel!=null)
+                                            oldRel.setBackgroundColor(Color.TRANSPARENT);
+                                        is_in_action_mode = false;
+                                        break;
+            case R.id.context_delete :  if(selectedPosition!=-1)
+                                            deleteSelectedItem(mod.get(selectedPosition));
+                                        break;
+
+            case R.id.context_edit :    if(selectedPosition!=-1)
+                                            editSelectedItem(mod.get(selectedPosition));
+                                        break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void RowItemLongClicked(View v, int position) {
+    public void RowItemLongClicked(View v, int position, RelativeLayout rel) {
+
         if(is_in_action_mode==false) {
+
+            rel.setBackgroundColor(Color.parseColor("#c1c1c1"));
+            oldRel = rel;
             toolbar.getMenu().clear();
             toolbar.inflateMenu(R.menu.context_menu);
             ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            selectedPosition = position;
             is_in_action_mode=true;
         }else{
+            if(oldRel!=null) {
+                oldRel.setBackgroundColor(Color.TRANSPARENT);
+                oldRel = null;
+            }
             toolbar.getMenu().clear();
             toolbar.inflateMenu(R.menu.main_menu);
             ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            selectedPosition = -1;
             is_in_action_mode=false;
         }
         //Toast.makeText(mContext, "Fragment 2 implementation", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void RowItemClicked(View v, int position, RelativeLayout rel) {
+        if (oldRel != null) {
+            oldRel.setBackgroundColor(Color.TRANSPARENT);
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.main_menu);
+            is_in_action_mode = false;
+            selectedPosition = -1;
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            oldRel = null;
+        } else {
+            android.app.FragmentManager manager = getActivity().getFragmentManager();
+
+            Bundle args = new Bundle();
+            args.putInt("_BILL", mod.get(position).getBill());
+            args.putString("_DATE", mod.get(position).getDate());
+            args.putString("_NAME", mod.get(position).getName());
+            args.putString("_TREATMENT", mod.get(position).getTreat());
+            args.putString("_CONTACT", mod.get(position).getContact());
+            args.putInt("_AMOUNT", mod.get(position).getAmount());
+            ListDetailsDialog newFragment = new ListDetailsDialog();
+            newFragment.setArguments(args);
+            newFragment.show(getActivity().getFragmentManager(), "TAG");
+            Toast.makeText(mContext, "Item Clicked!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteSelectedItem(Model mo){
+        mod.remove(selectedPosition);
+        ada.notifyDataSetChanged();
+
+        oldRel.setBackgroundColor(Color.TRANSPARENT);
+        oldRel = null;
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.main_menu);
+        is_in_action_mode = false;
+        selectedPosition = -1;
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        Toast.makeText(mContext, mo.getName()+ "Item Deleted!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void editSelectedItem(Model mo){
+        Toast.makeText(mContext, mo.getName()+ "Item edited!", Toast.LENGTH_SHORT).show();
     }
 }
 
