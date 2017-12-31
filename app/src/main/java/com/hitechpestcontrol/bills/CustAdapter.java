@@ -27,7 +27,7 @@ import static android.R.attr.filter;
 
 public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable{
 
-
+    private OnClickingRow click;
     private ActionMode mActionMode;
     private LayoutInflater inflator;
     private static String Tag = "Hahaha";
@@ -399,8 +399,12 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
-            View.OnLongClickListener{
+    public void setClickListner(OnClickingRow click){
+        this.click = click;
+    }
+
+
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
         private TextView tvName;
         private TextView tvTreat;
@@ -440,14 +444,14 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         @Override
         public boolean onLongClick(View v) {
-
-            Toast.makeText(con, "Click on long click item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();
+            if(click!=null)
+                click.RowItemLongClicked(v, getAdapterPosition());
             return true;
         }
+
     }
 
-    class MonthRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
-    View.OnLongClickListener{
+    class MonthRowHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
 
         private TextView tvName;
         private TextView tvTreat;
@@ -466,6 +470,7 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
+
         @Override
         public void onClick(View v) {
             android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
@@ -486,9 +491,14 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         @Override
         public boolean onLongClick(View v) {
-
-            Toast.makeText(con, "Click on long click item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();
+            if(click!=null)
+                click.RowItemLongClicked(v, getAdapterPosition());
             return true;
         }
     }
+
+    public interface OnClickingRow{
+        public void RowItemLongClicked(View v, int position);
+    }
+
 }

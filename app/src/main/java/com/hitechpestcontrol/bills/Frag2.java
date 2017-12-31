@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -16,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,14 +39,16 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, View.OnLongClickListener{
+public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, View.OnLongClickListener, CustAdapter.OnClickingRow{
     private RecyclerView rcl;
     public CustAdapter ada;
+    private Toolbar toolbar;
     private ImageView emptyImage;
     private String[] columns = {"DATE", "NAME", "TREATMENT", "AMOUNT"};
     private ArrayList<Model> mod = new ArrayList<>();
     private String MainQuery = null;
     private Context mContext;
+    private boolean is_in_action_mode = false;
 
 
     public Frag2() {
@@ -55,6 +60,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+
         setHasOptionsMenu(true);
 
     }
@@ -67,6 +73,8 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         View view = inflater.inflate(R.layout.frag2_layout, container, false);
         rcl = (RecyclerView) view.findViewById(R.id.RList);
         emptyImage = (ImageView) view.findViewById(R.id.empty);
+        View view1 = getActivity().findViewById(R.id.toolbar);
+        toolbar = (Toolbar)view1;
         getInformation();
         //cr.moveToNext();
         if(mod.isEmpty()){
@@ -76,6 +84,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
             rcl.setVisibility(View.VISIBLE);
             emptyImage.setVisibility(View.GONE);
             ada = new CustAdapter(getActivity(), mod);
+            ada.setClickListner(this);
             ada.notifyDataSetChanged();
             rcl.setAdapter(ada);
             rcl.setItemAnimator(new DefaultItemAnimator());
@@ -164,5 +173,32 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         return false;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home)
+        {
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.main_menu);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            is_in_action_mode = false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void RowItemLongClicked(View v, int position) {
+        if(is_in_action_mode==false) {
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.context_menu);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            is_in_action_mode=true;
+        }else{
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.main_menu);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            is_in_action_mode=false;
+        }
+        //Toast.makeText(mContext, "Fragment 2 implementation", Toast.LENGTH_SHORT).show();
+    }
 }
 

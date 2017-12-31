@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //Set custom title
         toolbar.setTitle("Hi Tech Pest Control");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setSubtitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
         mPager = (ViewPager)findViewById(R.id.pager);
@@ -181,6 +184,7 @@ public class MainActivity extends AppCompatActivity{
         db.close();
         Snackbar.make(v, "All records deleted", Snackbar.LENGTH_LONG).show();
     }
+
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         private Map<Integer, String> mFragmentTags;

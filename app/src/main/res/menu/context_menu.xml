@@ -6,11 +6,18 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/context_edit"
+        android:title="delete"
+        android:orderInCategory="100"
+        android:icon="@drawable/edit_icon"
+        app:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/context_delete"
         android:title="delete"
         android:orderInCategory="200"
-        android:icon="@drawable/search_white"
-        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@drawable/delete_icon"
         app:showAsAction="always"
         />
 </menu>
