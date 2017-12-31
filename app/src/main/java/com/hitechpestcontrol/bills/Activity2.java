@@ -3,11 +3,13 @@ package com.hitechpestcontrol.bills;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +38,7 @@ public class Activity2 extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String message = bundle.getString("Month");
         Log.d("Month in Activity2: ", message);
+
 
         getInformation(message);
         //View view = inflater.inflate(R.layout.frag2_layout, container, false);

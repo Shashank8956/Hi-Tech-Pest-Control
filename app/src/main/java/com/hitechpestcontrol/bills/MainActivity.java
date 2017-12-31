@@ -2,6 +2,7 @@ package com.hitechpestcontrol.bills;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
@@ -174,15 +176,35 @@ public class MainActivity extends AppCompatActivity{
         Snackbar.make(v, "Restoring", Snackbar.LENGTH_LONG).show();
     }
 
-    void clear(View v){
-        DatabaseHelp mDbHelper = new DatabaseHelp(getApplicationContext());
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+    void clear(final View v){
 
-        //Cursor cr = db.rawQuery("DROP TABLE MainTable", null);
-        //cr = db.rawQuery("DROP TABLE AccountsTable", null);
-        //cr.close();
-        db.close();
-        Snackbar.make(v, "All records deleted", Snackbar.LENGTH_LONG).show();
+        String content = "Are you sure you want to delete all records?";
+        String title = "Clear all";
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(content).setTitle(title);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                DatabaseHelp mDbHelper = new DatabaseHelp(getApplicationContext());
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+                /*Cursor cr = db.rawQuery("DROP TABLE MainTable", null);
+                cr = db.rawQuery("DROP TABLE AccountsTable", null);
+                db.execSQL("DROP Table MainTable");
+                db.execSQL("DROP Table AccountsTable");
+                cr.close();
+                db.close();*/
+                Snackbar.make(v, "All records deleted", Snackbar.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
 

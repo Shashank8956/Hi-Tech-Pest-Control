@@ -3,14 +3,17 @@ package com.hitechpestcontrol.bills;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -54,6 +57,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
     private int selectedPosition = -1;
     private RelativeLayout oldRel=null;
     private boolean is_in_action_mode = false;
+    private View view;
 
 
     public Frag2() {
@@ -75,7 +79,8 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.frag2_layout, container, false);
+
+        view = inflater.inflate(R.layout.frag2_layout, container, false);
         rcl = (RecyclerView) view.findViewById(R.id.RList);
         emptyImage = (ImageView) view.findViewById(R.id.empty);
         View view1 = getActivity().findViewById(R.id.toolbar);
@@ -253,17 +258,66 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         }
     }
 
-    public void deleteSelectedItem(Model mo){
-        mod.remove(selectedPosition);
-        ada.notifyDataSetChanged();
+    public void deleteSelectedItem(final Model mo){
+        String content = "Do you really want to delete the selected item?";
+        String title = "Delete record";
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(content).setTitle(title);
 
-        oldRel.setBackgroundColor(Color.TRANSPARENT);
-        oldRel = null;
-        toolbar.getMenu().clear();
-        toolbar.inflateMenu(R.menu.main_menu);
-        is_in_action_mode = false;
-        selectedPosition = -1;
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                mod.remove(selectedPosition);
+                ada.notifyDataSetChanged();
+
+                DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                db.execSQL("DELETE from MainTable WHERE Bill = '"+mo.getBill()+"'");
+                db.execSQL("DELETE from AccountTable WHERE Bill = '"+mo.getBill()+"'");
+                db.close();
+
+                oldRel.setBackgroundColor(Color.TRANSPARENT);
+                oldRel = null;
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.main_menu);
+                is_in_action_mode = false;
+                selectedPosition = -1;
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+                Snackbar snackbar = Snackbar
+                        .make(view, "Message is deleted", Snackbar.LENGTH_LONG)
+                        .setAction("UNDO", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                /*DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
+                                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+                                Cursor cr = db.rawQuery("INSERT into MainTable", null);
+                                cr.close();
+                                db.close();*/
+
+                                Snackbar snackbar1 = Snackbar.make(view, "Message is restored!", Snackbar.LENGTH_SHORT);
+                                snackbar1.show();
+                            }
+                        });
+
+                snackbar.show();
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                oldRel.setBackgroundColor(Color.TRANSPARENT);
+                oldRel = null;
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.main_menu);
+                is_in_action_mode = false;
+                selectedPosition = -1;
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
         Toast.makeText(mContext, mo.getName()+ "Item Deleted!", Toast.LENGTH_SHORT).show();
     }
@@ -271,5 +325,6 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
     public void editSelectedItem(Model mo){
         Toast.makeText(mContext, mo.getName()+ "Item edited!", Toast.LENGTH_SHORT).show();
     }
+
 }
 

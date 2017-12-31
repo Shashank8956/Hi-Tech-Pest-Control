@@ -176,20 +176,6 @@ public class CustAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         @Override
         public void onClick(View v) {
-            /*android.app.FragmentManager manager = ((Activity) con).getFragmentManager();
-
-            Bundle args = new Bundle();
-            args.putInt("_BILL", mod.get(getAdapterPosition()).getBill());
-            args.putString("_DATE", mod.get(getAdapterPosition()).getDate());
-            args.putString("_NAME", mod.get(getAdapterPosition()).getName());
-            args.putString("_TREATMENT", mod.get(getAdapterPosition()).getTreat());
-            args.putString("_CONTACT", mod.get(getAdapterPosition()).getContact());
-            args.putInt("_AMOUNT", mod.get(getAdapterPosition()).getAmount());
-            ListDetailsDialog newFragment = new ListDetailsDialog();
-            newFragment.setArguments(args);
-            newFragment.show(((Activity) con).getFragmentManager(), "TAG");
-
-            Toast.makeText(con, "Click on item no: "+ (getAdapterPosition()+1), Toast.LENGTH_SHORT).show();*/
             if(click!=null)
                 click.RowItemClicked(v, getAdapterPosition(), rel);
         }
