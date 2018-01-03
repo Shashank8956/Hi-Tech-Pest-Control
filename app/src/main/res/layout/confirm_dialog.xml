@@ -3,17 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<TextView
+    <EditText
         android:id="@+id/ConfirmDialogContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/DialogBill"
+        android:hint="You know what to type!"
         android:paddingLeft="20dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:gravity="left"
         android:layout_marginBottom="8dp"
-        android:text="Name"
         android:textSize="18sp"
         android:textStyle="normal|bold" />
 
@@ -28,7 +27,7 @@
         android:layout_alignParentLeft="true"
         android:background="@android:color/transparent"
         android:textColor="#2196f3"
-        android:layout_below="@id/DialogAmt"/>
+        android:layout_below="@id/ConfirmDialogContent"/>
     <Button
         android:id="@+id/ConfirmDialogOk"
         android:layout_width="84dp"
@@ -39,5 +38,5 @@
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
         android:textColor="#2196f3"
-        android:layout_below="@id/DialogAmt" />-->
+        android:layout_below="@id/ConfirmDialogContent" />
 </RelativeLayout>

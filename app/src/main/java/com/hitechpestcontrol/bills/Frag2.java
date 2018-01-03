@@ -2,6 +2,7 @@ package com.hitechpestcontrol.bills;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -127,6 +128,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
 
     public void getInformation()
     {
+        mod.clear();
         DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         //Cursor cr = db.rawQuery("Select date, name, treatment, amount from MainTable", null);
@@ -254,7 +256,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
             ListDetailsDialog newFragment = new ListDetailsDialog();
             newFragment.setArguments(args);
             newFragment.show(getActivity().getFragmentManager(), "TAG");
-            Toast.makeText(mContext, "Item Clicked!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mContext, "Item Clicked!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -269,9 +271,19 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
 
                 mod.remove(selectedPosition);
                 ada.notifyDataSetChanged();
-
+                if(mod.isEmpty()){
+                    rcl.setVisibility(View.GONE);
+                    emptyImage.setVisibility(View.VISIBLE);
+                }
                 DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                Cursor cr = db.rawQuery("SELECT chemical, travel FROM AccountTable WHERE Bill = '"+mo.getBill()+"'", null);
+                cr.moveToFirst();
+                final int chem, trav, profit;
+                chem = Integer.parseInt(cr.getString(0));
+                trav = Integer.parseInt(cr.getString(1));
+                profit = mo.getAmount() - chem - trav;
+
                 db.execSQL("DELETE from MainTable WHERE Bill = '"+mo.getBill()+"'");
                 db.execSQL("DELETE from AccountTable WHERE Bill = '"+mo.getBill()+"'");
                 db.close();
@@ -285,18 +297,43 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
                 ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
                 Snackbar snackbar = Snackbar
-                        .make(view, "Message is deleted", Snackbar.LENGTH_LONG)
+                        .make(view, "Record deleted", Snackbar.LENGTH_LONG)
                         .setAction("UNDO", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                /*DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
+                                DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
                                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-                                Cursor cr = db.rawQuery("INSERT into MainTable", null);
-                                cr.close();
-                                db.close();*/
+                                ContentValues values = new ContentValues();
+                                values.put("BILL", mo.getBill());
+                                values.put("DATE", mo.getDate());
+                                values.put("NAME", mo.getName());
+                                values.put("TREATMENT", mo.getTreat());
+                                values.put("CONTACT", mo.getContact());
+                                values.put("AMOUNT", mo.getAmount());
 
-                                Snackbar snackbar1 = Snackbar.make(view, "Message is restored!", Snackbar.LENGTH_SHORT);
+                                db.insert("MainTable", null, values);
+
+
+                                ContentValues valuesAcc = new ContentValues();
+                                valuesAcc.put("BILL", mo.getBill());
+                                valuesAcc.put("DATE", mo.getDate());
+                                valuesAcc.put("AMOUNT", mo.getAmount());
+                                valuesAcc.put("CHEMICAL", chem);
+                                valuesAcc.put("TRAVEL", trav);
+                                valuesAcc.put("PROFIT", profit);
+
+                                db.insert("AccountTable", null, valuesAcc);
+                                getInformation();
+                                ada.notifyDataSetChanged();
+                                if(mod.isEmpty()){
+                                    rcl.setVisibility(View.GONE);
+                                    emptyImage.setVisibility(View.VISIBLE);
+                                }else{
+                                    rcl.setVisibility(View.VISIBLE);
+                                    emptyImage.setVisibility(View.GONE);
+                                }
+                                Snackbar snackbar1 = Snackbar.make(view, "Record restored!", Snackbar.LENGTH_SHORT);
                                 snackbar1.show();
                             }
                         });
@@ -319,7 +356,7 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        Toast.makeText(mContext, mo.getName()+ "Item Deleted!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext, mo.getName()+ "Item Deleted!", Toast.LENGTH_SHORT).show();
     }
 
     public void editSelectedItem(Model mo){

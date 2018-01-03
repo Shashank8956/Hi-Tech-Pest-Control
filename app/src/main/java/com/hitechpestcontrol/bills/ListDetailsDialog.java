@@ -41,16 +41,16 @@ public class ListDetailsDialog extends DialogFragment implements View.OnClickLis
         tvDiaBill.setText("Bill no: #"+myValue);
 
         myValue = mArgs.getString("_DATE");
-        tvDiaDate.setText(myValue);
+        tvDiaDate.setText("Date: "+myValue);
 
         myValue = mArgs.getString("_TREATMENT");
-        tvDiaTreat.setText(myValue);
+        tvDiaTreat.setText("Treat: "+myValue);
 
         myValue = mArgs.getString("_CONTACT");
-        tvDiaMob.setText(myValue);
+        tvDiaMob.setText("Mob: "+myValue);
 
         myValue = Integer.toString(mArgs.getInt("_AMOUNT"));
-        tvDiaAmt.setText(getString(R.string.Rs)+" "+myValue);
+        tvDiaAmt.setText("Amt: "+getString(R.string.Rs)+" "+myValue);
 
         getDialog().setCanceledOnTouchOutside(true);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);

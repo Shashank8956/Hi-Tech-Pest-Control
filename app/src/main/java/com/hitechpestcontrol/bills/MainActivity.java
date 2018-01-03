@@ -185,16 +185,10 @@ public class MainActivity extends AppCompatActivity{
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                DatabaseHelp mDbHelper = new DatabaseHelp(getApplicationContext());
-                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                android.app.FragmentManager manager = getFragmentManager();
 
-                /*Cursor cr = db.rawQuery("DROP TABLE MainTable", null);
-                cr = db.rawQuery("DROP TABLE AccountsTable", null);
-                db.execSQL("DROP Table MainTable");
-                db.execSQL("DROP Table AccountsTable");
-                cr.close();
-                db.close();*/
-                Snackbar.make(v, "All records deleted", Snackbar.LENGTH_LONG).show();
+                ConfirmDialog newFragment = new ConfirmDialog();
+                newFragment.show(getFragmentManager(), "Hello");
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

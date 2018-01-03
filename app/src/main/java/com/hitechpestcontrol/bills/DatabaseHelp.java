@@ -9,7 +9,7 @@ import android.util.Log;
 public class DatabaseHelp extends SQLiteOpenHelper {
 
     private static final String name = "HPC!!";
-    private static final int version = 7;
+    private static final int version = 5;
 
     public DatabaseHelp(Context context)
     {
@@ -54,6 +54,12 @@ public class DatabaseHelp extends SQLiteOpenHelper {
 
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String SQL_DELETE_ENTRIES1 = "DROP table MainTable";
+        String SQL_DELETE_ENTRIES2 = "DROP table AccountTable";
+        Log.d("Downgrade!","");
+        db.execSQL(SQL_DELETE_ENTRIES1);
+        db.execSQL(SQL_DELETE_ENTRIES2);
+        onCreate(db);
         onUpgrade(db, oldVersion, newVersion);
     }
 }

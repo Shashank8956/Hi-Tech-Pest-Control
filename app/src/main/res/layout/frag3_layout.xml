@@ -7,7 +7,7 @@
     android:paddingRight="12dp"
     android:background="@drawable/white1">
     <TextView
-        android:text="2017"
+        android:text="2018"
         android:textSize="32sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"

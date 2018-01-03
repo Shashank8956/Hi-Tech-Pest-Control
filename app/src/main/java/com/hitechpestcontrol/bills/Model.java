@@ -4,7 +4,11 @@ package com.hitechpestcontrol.bills;
 public class Model {
 
     private String name, treat, date, contact;
-    private int amount, bill;
+    private int amount;
+    private int bill;
+    private int chem;
+    private int trav;
+
 
     Model(int bill, String date, String name, String treat, String contact, int amount)
     {
@@ -43,6 +47,7 @@ public class Model {
     public void setBill(int bill) {
         this.bill = bill;
     }
+
 
     public void setDate(String date) {
         this.date = date;
