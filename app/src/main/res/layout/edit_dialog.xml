@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp"
+    android:paddingRight="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/L1">
+
+        <EditText
+            android:id="@+id/EditBill"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Bill"/>
+
+        <EditText
+            android:id="@+id/EditDate"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="end"
+            android:hint="Date"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/L2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/L1">
+
+        <EditText
+            android:id="@+id/EditName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Name"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/EditContact"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:hint="Contact"/>
+
+            <EditText
+                android:id="@+id/EditTreat"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:gravity="end"
+                android:hint="Treat"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/L3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/L2">
+
+        <EditText
+            android:id="@+id/EditChem"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:hint="Chem"/>
+
+        <EditText
+            android:id="@+id/EditTrav"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:gravity="end"
+            android:hint="Trav"/>
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/EditAmt"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Amount"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/EditCancel"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:gravity="end"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:text="Cancel"
+            android:background="@android:color/transparent"
+            android:textColor="#2196f3"/>
+
+        <Button
+            android:id="@+id/EditOk"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:gravity="end"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:text="Ok"
+            android:background="@android:color/transparent"
+            android:textColor="#2196f3"/>
+
+    </LinearLayout>
+
+</LinearLayout>

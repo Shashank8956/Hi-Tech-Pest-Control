@@ -360,6 +360,30 @@ public class Frag2 extends Fragment implements SearchView.OnQueryTextListener, V
     }
 
     public void editSelectedItem(Model mo){
+
+        DatabaseHelp mDbHelper = new DatabaseHelp(getContext());
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        Cursor cr = db.rawQuery("SELECT chemical, travel FROM AccountTable WHERE Bill = '"+mo.getBill()+"'", null);
+        cr.moveToFirst();
+        final int chem, trav, profit;
+        chem = Integer.parseInt(cr.getString(0));
+        trav = Integer.parseInt(cr.getString(1));
+
+
+        android.app.FragmentManager manager = getActivity().getFragmentManager();
+        Bundle args = new Bundle();
+        args.putInt("_BILL", mo.getBill());
+        args.putString("_DATE", mo.getDate());
+        args.putString("_NAME", mo.getName());
+        args.putString("_TREATMENT", mo.getTreat());
+        args.putString("_CONTACT", mo.getContact());
+        args.putInt("_TRAVEL", trav);
+        args.putInt("_CHEMICAL", chem);
+        args.putInt("_AMOUNT", mo.getAmount());
+
+        EditDialog newFragment = new EditDialog();
+        newFragment.setArguments(args);
+        newFragment.show(getActivity().getFragmentManager(), "TAG");
         Toast.makeText(mContext, mo.getName()+ "Item edited!", Toast.LENGTH_SHORT).show();
     }
 
